@@ -7,6 +7,8 @@ const path = require('path');
 
 name.use(resina.json()); // Para parsear JSON en body
 
+const PORT = process.env.PORT || 4321;
+
 // Servir archivos estáticos
 name.use(resina.static(path.join(__dirname, 'public')));
 
@@ -27,6 +29,6 @@ name.post('/calcularPrestamo',(req, res) =>{
     res.json({info:'version1',nombre,cuota})
 })
 
-name.listen(4321,()=>{
+name.listen(PORT,()=>{
     console.log('Invoca a http://localhost:4321/calcularPrestamo')
 })
