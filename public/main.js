@@ -1,6 +1,8 @@
 const form = document.getElementById('losDatos');
-
-const salida = document.getElementById('resultadoPrestamo');
+const btn = document.getElementById('btnCalcular');
+const resultCard = document.getElementById('resultCard');
+const valorCuota = document.getElementById('valorCuota');
+const nombreCliente = document.getElementById('nombreCliente');
 
 // Agrega un listener al formulario que se activa cuando se envía (submit)
 form.addEventListener('submit', async (e) => {
@@ -10,6 +12,10 @@ form.addEventListener('submit', async (e) => {
     let prestamo = parseInt(form.elPrestamo.value);
     let meses = parseInt(form.losMeses.value);
     let interes = parseFloat(form.losIntereses.value);
+
+    // Estado visual
+    resultCard.classList.add('hidden');
+    btn.disabled = true;
 
     try {
         const resp = await fetch('/calcularPrestamo', {
@@ -22,18 +28,27 @@ form.addEventListener('submit', async (e) => {
         // Si la respuesta del servidor no es exitosa (status distinto de 200-299)
         if (!resp.ok) {
             console.log('NO valido')
-            const error = await resp.json(); // Convierte la respuesta de error a JSON
-            salida.value = `Error: ${error.error}`; // Muestra el mensaje de error
-            return; // Sale de la función
+            alert("Error al procesar los datos");
+            return;
         }
         
         let datos = await resp.json()
-        console.log(datos)
-        salida.value =`Nombre:${datos.nombre}:  Cuota $${datos.cuota.toFixed(2)}`
+        console.log('Respuesta recibida:', datos)
+
+        // Formatear moneda de forma elegante
+        const formatter = new Intl.NumberFormat('es-CO', {
+            style: 'currency',
+            currency: 'COP',
+        });
+
+        // Mostrar resultados con estilo
+        valorCuota.textContent = formatter.format(datos.cuota);
+        nombreCliente.textContent = `Preparado para: ${datos.nombre}`;
+        resultCard.classList.remove('hidden');
   
     } catch (error) {
-        salida.value ='Tuvimos problemas'
+        alert('Hubo un error en la conexión con el servidor.');
+    } finally {
+        btn.disabled = false;
     }
-
-
 })

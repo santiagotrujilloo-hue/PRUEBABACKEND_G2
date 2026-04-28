@@ -1,33 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --primary: #6366f1;
+    --secondary: #a855f7;
+    --text: #ffffff;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+}
+
 body {
-    text-align: center;
-    background-color: rgb(255, 224, 224);
-    font-size: 25px;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(-45deg, #0f172a, #1e1b4b, #312e81, #1e1b4b);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: var(--text);
+    margin: 0;
     display: flex;
-    flex-flow: column nowrap;    
-    justify-content: center;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
+    overflow-x: hidden;
 }
 
-table {
-    width: 500px;
-    margin: 20px auto;
-    border-radius: 10px;
-    padding: 10px;
-    border: 2px solid;
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-textArea {
-    width: 500px;
-    height: 100px;
-    padding: 5px auto;
-    border-radius: 10px;
+.background-decor {
+    position: fixed;
+    top: -10%;
+    right: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+    filter: blur(80px);
+    opacity: 0.4;
+    z-index: -1;
+}
+
+header {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+header h1 {
+    font-weight: 600;
+    font-size: 2.5rem;
+    letter-spacing: -1px;
+    background: linear-gradient(to right, #fff, #cbd5e1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+header h1 span {
+    display: block;
+    font-size: 1rem;
+    color: #94a3b8;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    padding: 1.5rem 2rem;
+    border-radius: 2rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px;
+    margin: 2rem 0;
+    transition: transform 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    color: #cbd5e1;
+}
+
+input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.65rem;
+    border: 1px solid var(--glass-border);
+    border-radius: 0.8rem;
+    font-size: 1rem;
+    color: white;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 button {
-    width:140px;
-    height: 50px;
-    margin: 10px;
-    border-radius: 10px;
+    width: 100%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 1rem;
+    border: none;
+    border-radius: 0.8rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
 }
 
+button:hover {
+    transform: scale(1.02);
+    filter: brightness(1.1);
+}
 
+.result-display {
+    margin-top: 1.2rem;
+    text-align: center;
+    animation: fadeIn 0.5s ease-out;
+}
 
+.hidden { display: none; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.result-label { font-size: 0.8rem; color: #94a3b8; margin: 0; }
+
+.valor-cuota {
+    font-size: 2rem;
+    margin: 0.2rem 0;
+    font-weight: 600;
+    color: #22c55e;
+}
+
+.result-client { font-size: 0.9rem; font-style: italic; opacity: 0.8; }
+
+.divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--glass-border), transparent);
+    margin: 0.8rem 0;
+}
+
+footer { margin-top: auto; padding: 1rem; font-size: 0.7rem; color: #64748b; text-align: center; }
